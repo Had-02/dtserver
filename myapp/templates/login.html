@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>ログイン</title>
+    <style>
+        .message-box {
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .message-success {
+            background-color: #28a745; /* Green */
+        }
+        .message-error {
+            background-color: #dc3545; /* Red */
+        }
+    </style>
+</head>
+<body>
+  <div class="login"> 
+    <div class="login-screen">
+      <div class="app-title">
+        <h1>Login</h1>
+      </div>
+
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="login-form">
+          <div class="control-group">
+            <input type="text" name="username" class="login-field" placeholder="username" id="login-name">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+          </div>
+
+          <div class="control-group">
+            <input type="password" name="password" class="login-field" placeholder="password" id="login-pass">
+            <label class="login-field-icon fui-lock" for="login-pass"></label>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-large btn-block">Login</button>
+          <a class="login-link" href="signup">新規登録</a>
+          <a class="login-link" href="#">Lost your password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        {% if 'login' in message.tags %}
+          <div class="message-box 
+            {% if message.tags %} 
+              {% if 'success' in message.tags %} message-success 
+              {% elif 'error' in message.tags %} message-error 
+              {% endif %} 
+            {% endif %}">
+            {{ message }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+{% endif %}
+
+
+  <div class="wrapper">
+    <div class="car">
+      <div class="body">
+        <img src="https://www.evoworx.co.jp/demo/css-car/car_body.png" alt="" />
+      </div>
+      <div class="tire-front">
+        <img src="https://www.evoworx.co.jp/demo/css-car/tire.png" alt="" />
+      </div>
+      <div class="tire-rear">
+        <img src="https://www.evoworx.co.jp/demo/css-car/tire.png" alt="" />
+      </div>
+    </div>
+    <div class="backgound">
+      <div class="group">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+      </div>
+      <div class="circle">
+        <div class="sunset"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,502 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="ja">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
+		<script>
+			function showAlert(message) {
+				alert(message);
+			}
+		</script>
+
+		<script>
+			function confirmLogout() {
+				if (confirm('ログアウトしてもよろしいですか？')) {
+					window.location.href = "{% url 'logout' %}";
+				}
+				return false;
+			}
+		</script>
+
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <!-- title of site -->
+        <title>Driver Talk</title>
+
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="static/assets/logo/logo.png"/>
+	
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="static/assets/css/font-awesome.min.css">
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="static/assets/css/linearicons.css">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="static/assets/css/animate.css">
+
+		<!--flaticon.css-->
+        <link rel="stylesheet" href="static/assets/css/flaticon.css">
+
+		<!--slick.css-->
+        <link rel="stylesheet" href="static/assets/css/slick.css">
+		<link rel="stylesheet" href="static/assets/css/slick-theme.css">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="static/assets/css/bootsnav.css" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="static/assets/css/style.css">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="static/assets/css/responsive.css">
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+		
+		<!--header-top start -->
+		<header id="header-top" class="header-top">
+			<ul>
+				<li>
+					<div class="header-top-left">
+						
+					</div>
+				</li>
+				<li class="head-responsive-right pull-right">
+					<div class="header-top-right">
+						<ul>
+							<li class="header-top-contact">
+								{% if request.user.is_authenticated %}
+									welcome, {{ request.user.username }} <!-- 로그인 중인 사용자 이름 표시 -->
+									<a href="{% url 'logout'%}" onclick="return confirmLogout();">Sign out</a>
+								{% else %}
+									<a href="{% url 'login' %}">Sign in</a> <!-- 로그인 링크 -->
+								{% endif %}
+							</li>
+							<li class="header-top-contact">
+								<a href="login/signup/">register</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+					
+		</header><!--/.header-top-->
+		<!--header-top end -->
+
+		<!-- top-area Start -->
+		<section class="top-area">
+			<div class="header-area">
+				<!-- Start Navigation -->
+			<nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+				<div class="container">
+
+					<!-- Start Header Navigation -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+							<i class="fa fa-bars"></i>
+						</button>
+						<a class="navbar-brand" href="">Driver<span>Talk</span></a>
+
+					</div><!--/.navbar-header-->
+					<!-- End Header Navigation -->
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+							<li class=" scroll active"><a href="#home">home</a></li>
+							<li class="scroll"><a href="#works">News</a></li>
+							<li class><a href="{% url 'blog_page' %}">blog</a></li>
+							<li><a href="{% url 'sa_pa_upload' %}">SA・PAニュース</a></li>
+							{% comment %} <li class="scroll"><a href="#explore">explore</a></li> {% endcomment %}
+							
+							
+							
+						</ul><!--/.nav -->
+					</div><!-- /.navbar-collapse -->
+				</div><!--/.container-->
+			</nav><!--/nav-->
+			<!-- End Navigation -->
+			</div><!--/.header-area-->
+		<div class="clearfix"></div>
+
+		</section><!-- /.top-area-->
+		<!-- top-area End -->
+
+		<!--welcome-hero start -->
+		<section id="home" class="welcome-hero">
+			<div class="container">
+				<div class="welcome-hero-txt">
+					<h2>Driver <span class="tark">Talk</span>  </h2>
+					
+					<p>
+						あなたのドライブをより便利に
+					</p>
+					
+				</div>
+
+				<div class="welcome-hero-serch-box">
+					<div class="welcome-hero-form">
+						<div class="single-welcome-hero-form">
+							
+							<form id="name-search-form" action="{% url 'search_view' %}" method="post">
+							{% csrf_token %}
+							<input type="text" name="query" placeholder="地域名を入力" required />
+						</div>
+						<button class="welcome-hero-btn" type="submit">
+							検索 <i data-feather="search"></i>
+						</button>					
+						<!--
+						<button class="welcome-hero-btn" type="submit">
+							マップ検索ボタン <i data-feather="search"></i>
+						</button>
+						-->
+						</form>						
+					</div>
+				</div>
+				
+				<button class="welcome-MAP-btn" type="button" onclick="window.location.href='{% url 'japan_map_view' %}'">
+				エリアで検索 <i data-feather="search"></i>
+				</button>
+
+				
+			</div>
+	</div>
+
+			<style>
+				body {
+					height: 2000px; /* スクロールのためのダミーの高さ */
+					font-family: Arial, sans-serif;
+				}
+				#scrollTopBtn {
+					display: none;
+					position: fixed;
+					bottom: 20px;
+					right: 20px;
+					z-index: 99;
+					border: none;
+					outline: none;
+					background-color: #0066cc;
+					cursor: pointer;
+					padding: 10px;
+					border-radius: 50%;
+					box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+					transition: background-color 0.3s, transform 0.3s;
+				}
+				#scrollTopBtn:hover {
+					background-color: #0055aa;
+					transform: translateY(-3px);
+				}
+				#scrollTopBtn svg {
+					width: 30px;
+					height: 30px;
+					fill: white;
+				}
+			</style>
+		</head>
+		<body>
+			
+		
+			<button id="scrollTopBtn" title="トップへ戻る">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+					<path d="M499.99 176h-59.87l-16.64-41.6C406.38 91.63 365.57 64 319.5 64h-127c-46.06 0-86.88 27.63-103.99 70.4L71.87 176H12.01C4.2 176-1.53 183.34.37 190.91l6 24C7.7 220.25 12.5 224 18.01 224h20.07C24.65 235.73 16 252.78 16 272v48c0 16.12 6.16 30.67 16 41.93V416c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-32h256v32c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-54.07c9.84-11.25 16-25.8 16-41.93v-48c0-19.22-8.65-36.27-22.07-48H494c5.51 0 10.31-3.75 11.64-9.09l6-24c1.89-7.57-3.84-14.91-11.65-14.91zm-352.06-17.83c7.29-18.22 24.94-30.17 44.57-30.17h127c19.63 0 37.28 11.95 44.57 30.17L384 208H128l19.93-49.83zM96 319.8c-19.2 0-32-12.76-32-31.9S76.8 256 96 256s48 28.71 48 47.85-28.8 15.95-48 15.95zm320 0c-19.2 0-48 3.19-48-15.95S396.8 256 416 256s32 12.76 32 31.9-12.8 31.9-32 31.9z"/>
+				</svg>
+			</button>
+		
+			<script>
+				var scrollTopBtn = document.getElementById("scrollTopBtn");
+		
+				window.onscroll = function() {scrollFunction()};
+		
+				function scrollFunction() {
+					if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+						scrollTopBtn.style.display = "block";
+					} else {
+						scrollTopBtn.style.display = "none";
+					}
+				}
+		
+				scrollTopBtn.onclick = function() {
+					document.body.scrollTop = 0; // For Safari
+					document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+				}
+			</script>
+
+		</section><!--/.welcome-hero-->
+		<!--welcome-hero end -->
+
+		<!--works start -->
+		<section id="works" class="works">
+			<div class="container">
+				<div class="section-header">
+					<div class="bbs">
+						<ul>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+						</ul>
+						<ul>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+							<li>※○○サービスエリア交通事故により渋滞</li>
+						</ul>
+					</div>
+				</div><!--/.section-header-->
+				
+			</div><!--/.container-->
+		
+		</section><!--/.works-->
+		<!--works end -->
+
+		<!--explore start -->
+		
+		
+		<!--blog start -->
+		<section id="blog" class="blog">
+			<div class="container">
+				<div class="section-header">
+					<h2>🆕SA・PAニュース特集</h2>
+					<!--<img src="image01.jpg"><img>-->
+				</div>
+				<hr class="cp_hr01" />
+				<div class="blog-content">
+					<div class="row">
+						{% for post in latest_sa_pa_posts %}
+						<div class="col-md-4 col-sm-6">
+							<div class="single-blog-item">
+								<div class="single-blog-item-txt">
+									<h2>{{ post.title }}</h2>
+									<p>{{ post.content|truncatewords:20 }}</p>
+									{% if post.image %}
+									<img src="{% url 'serve_image' post.image.name %}" alt="{{ post.title }}">
+									{% else %}
+									<img src="{% static 'assets/images/default.png' %}" alt="デフォルト画像">
+									{% endif %}
+									<p>投稿者: {{ post.author.username }}</p>
+									<p>投稿日時: {{ post.created_at|date:"Y年m月d日 H:i" }}</p>
+									<p>
+										<button class="like-button" data-post-id="{{ post.id }}" data-type="sapa">
+											❤ <span id="likes-count-{{ post.id }}">{{ post.likes }}</span>
+										</button>
+									</p>
+									
+									<form action="{% url 'delete_sa_pa_post' post.id %}" method="post">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-danger" onclick="return confirm('本当にこの投稿を削除しますか？');">
+											削除
+										</button>
+									</form>                                    
+								</div>
+							</div>
+						</div>
+						{% empty %}
+							<p>まだ投稿はありません。</p>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		
+		<!--/.blog-->
+
+		<!-- blog start -->
+		<section id="latest-posts" class="home">
+			<div class="container">
+				<div class="section-header">
+					<h2>🚙最新の投稿</h2>
+					<hr class="cp_hr01" />
+				</div><!--/.section-header-->
+				<div class="blog-content">
+					<div class="row">
+						{% for post in latest_posts %}
+						<div class="col-md-4 col-sm-6">
+							<div class="single-blog-item">
+								<div class="single-blog-item-txt">
+									<h2><a href="{% url 'blog_page' %}?post_id={{ post.id }}">{{ post.title }}</a></h2>
+									{% if post.image %}
+										<img src="{% url 'serve_image' post.image.name %}" alt="{{ post.title }}" class="img-fluid">
+									{% else %}
+										<img src="{% static 'assets/images/default.png' %}" alt="デフォルト画像" class="img-fluid">
+									{% endif %}
+									<p>{{ post.content|truncatewords:20 }}</p> 
+									<p>投稿者: {{ post.author.username }}</p>  
+									<p>投稿日時: {{ post.created_at|date:"Y年m月d日 H:i" }}</p>  
+									<p>
+										<button class="like-button" data-post-id="{{ post.id }}" data-type="blog">
+											❤ <span id="likes-count-{{ post.id }}">{{ post.likes }}</span>
+										</button>
+									</p>
+																
+									
+									<form action="{% url 'delete_post' post.id %}" method="post">  
+										{% csrf_token %}
+										<button type="submit" class="btn btn-danger" onclick="return confirm('本当にこの投稿を削除しますか？');">
+											削除
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						{% empty %}
+							<p>まだ投稿はありません。</p>
+						{% endfor %}
+					</div>
+				</div>
+			</div><!--/.container-->
+		</section><!--/.latest-posts-->
+		<!-- blog end -->
+
+		
+		<!--subscription strat -->
+		
+		<!--subscription end -->
+
+		<!--footer start-->
+		<footer id="footer"  class="footer">
+			<div class="container">
+				<div class="footer-menu">
+				<div class="row">
+					<div class="col-sm-3">
+			           		 <div class="navbar-header">
+				                <a class="navbar-brand" href="">Driver<span>Talk</span></a>
+				            </div><!--/.navbar-header-->
+					</div>
+					<div class="col-sm-9">
+						<ul class="footer-menu-item">
+							<li class=" scroll active"><a href="#home">home</a></li>
+							<li class="scroll"><a href="#works">News</a></li>
+							<li class><a href="{% url 'blog_page' %}">blog</a></li>
+							<li><a href="{% url 'sa_pa_upload' %}">SA・PAニュース</a></li>
+			                </ul><!--/.nav -->
+					</div>
+				</div>
+				</div>
+				<div class="hm-footer-copyright">
+					<div class="row">
+						<div class="col-sm-5">
+							<p>
+								&copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+							</p><!--/p-->
+						</div>
+						<div class="col-sm-7">
+							<div class="footer-social">
+								<!--<span><i class="fa fa-phone"> +1  (222) 777 8888</i></span>
+								<a href="#"><i class="fa fa-facebook"></i></a>	
+								<a href="#"><i class="fa fa-twitter"></i></a>
+								<a href="#"><i class="fa fa-linkedin"></i></a>
+								<a href="#"><i class="fa fa-google-plus"></i></a>-->
+							</div>
+						</div>
+					</div>
+					
+				</div><!--/.hm-footer-copyright-->
+			</div><!--/.container-->
+
+			
+				
+			</div><!--/.scroll-Top-->
+			
+        </footer><!--/.footer-->
+		<!--footer end-->
+		
+		<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+		<script src="static/assets/js/jquery.js"></script>
+        
+        <!--modernizr.min.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		
+		<!--bootstrap.min.js-->
+        <script src="static/assets/js/bootstrap.min.js"></script>
+		
+		<!-- bootsnav js -->
+		<script src="static/assets/js/bootsnav.js"></script>
+
+        <!--feather.min.js-->
+        <script  src="static/assets/js/feather.min.js"></script>
+
+        <!-- counter js -->
+		<script src="static/assets/js/jquery.counterup.min.js"></script>
+		<script src="static/assets/js/waypoints.min.js"></script>
+
+        <!--slick.min.js-->
+        <script src="static/assets/js/slick.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+		
+        <!--Custom JS-->
+        <script src="static/assets/js/custom.js"></script>
+        
+    </body>
+	<script>
+		const csrfToken = '{{ csrf_token }}'; // CSRF 토큰 변수에 저장
+		document.querySelectorAll('.like-button').forEach(button => {
+			button.addEventListener('click', function() {
+				const postId = this.getAttribute('data-post-id');
+				const postType = this.getAttribute('data-type');
+				let url = '';
+	
+				if (postType === 'blog') {
+					url = `/like/blog/${postId}/`;  // BlogPost의 좋아요 URL
+				} else if (postType === 'sapa') {
+					url = `/like/sapa/${postId}/`;  // SAPAPost의 좋아요 URL
+				}
+	
+				fetch(url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': csrfToken  // CSRF 토큰 추가
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					const likesCountElement = document.getElementById(`likes-count-${postId}`);
+					likesCountElement.innerText = data.likes; // 좋아요 수 업데이트
+					this.innerText = `❤ ${data.likes}`; // 버튼 텍스트 업데이트
+				})
+				.catch(error => console.error('Error:', error));
+			});
+		});
+	</script>
+	
+	
+	
+	
+	
+</html>

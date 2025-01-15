@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>エリア</title>
+        {% load static %}
+        <link href="{% static 'css/map/01japanmap.css' %}" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <style>
+            .back-button {
+                position: absolute; /* 絶対位置 */
+                top: 10px; /* 上部マージン */
+                left: 10px; /* 左側マージン */
+                padding: 10px 15px; /* パディング */
+                background-color: #ffcc00; /* 背景色 */
+                color: black; /* テキスト色 */
+                border: none; /* ボーダーなし */
+                border-radius: 5px; /* 角を丸くする */
+                cursor: pointer; /* カーソル変更 */
+                font-size: 16px; /* フォントサイズ */
+            }
+            .back-button:hover {
+                background-color: #0056b3; /* ホバー時の色の変化 */
+            }
+    
+            /* 추가 스타일 */
+            .title {
+                font-size: 32px; /* 타이틀 크기 */
+                font-weight: bold; /* 굵게 */
+                text-align: left; /* 중앙 정렬 */
+                margin-top: 100px; /* 상단 여백 */
+                margin-left: 30%;
+            }
+    
+            .instruction {
+                font-size: 24px; /* 안내 문구 크기 */
+                text-align: left; /* 중앙 정렬 */
+                margin-top: 20px; /* 상단 여백 */
+                margin-left: 30%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="title">エリア検索</div> <!-- 큰글씨 타이틀 -->
+        <div class="instruction">エリアを選択してください</div> <!-- 안내 문구 -->
+        
+        </body>
+<body>
+    <button class="back-button" onclick="goBack()">◀戻る</button> 
+
+    <div id="japan-map" class="clearfix">
+    
+    <div id="hokkaido-touhoku" class="clearfix">
+        <p class="area-title">北海道・東北</p>
+        <div class="area">
+            <a href="#">
+                <div id="hokkaido">
+                    <a href="{% url 'touhoku_view' %}" id="hokkaido"><p>北海道</p></a>
+                    
+                </div>
+            </a>
+            <a href="#">
+                <div id="aomori">
+                    <a href="{% url 'touhoku_view' %}" id="aomori"><p>青森</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="akita">
+                    <a href="{% url 'touhoku_view' %}" id="akita"><p>秋田</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="iwate">
+                    <a href="{% url 'touhoku_view' %}" id="iwate"><p>岩手</p></a>
+                </div>
+            
+            <a href="#">
+                <div id="yamagata">
+                    <a href="{% url 'touhoku_view' %}" id="yamagata"><p>山形</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="miyagi">
+                    <a href="{% url 'touhoku_view' %}" id="miyagi"><p>宮城</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="fukushima">
+                    <a href="{% url 'touhoku_view' %}" id="fukushima"><p>福島</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div id="kantou">
+        <p class="area-title">関東</p>
+        <div class="area">
+            <a href="#">
+                <div id="gunma">
+                    <a href="{% url 'kantou_view' %}" id="gunma">
+                        <p>群馬</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="tochigi">
+                    <a href="{% url 'kantou_view' %}" id="tochigi">
+                        <p>栃木</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="ibaraki">
+                    <a href="{% url 'kantou_view' %}" id="ibaraki">
+                        <p>茨城</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="saitama">
+                    <a href="{% url 'kantou_view' %}" id="saitama">
+                        <p>埼玉</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="chiba">
+                    <a href="{% url 'kantou_view' %}" id="chiba">
+                        <p>千葉</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="tokyo">
+                    <a href="{% url 'kantou_view' %}" id="tokyo">
+                        <p>東京</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="kanagawa">
+                    <a href="{% url 'kantou_view' %}" id="kanagawa">
+                        <p>神奈川</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    
+
+    <div id="tyubu" class="clearfix">
+        <p class="area-title">中部</p>
+        <div class="area">
+            <a href="#">
+                <div id="nigata">
+                    <a href="{% url 'cyuubu_view' %}" id="nigata">
+                        <p>新潟</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="toyama">
+                    <a href="{% url 'cyuubu_view' %}" id="toyama">
+                        <p>富山</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="ishikawa">
+                    <a href="{% url 'cyuubu_view' %}" id="ishikawa">
+                        <p>石川</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="fukui">
+                    <a href="{% url 'cyuubu_view' %}" id="fukui">
+                        <p>福井</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="nagano">
+                    <a href="{% url 'cyuubu_view' %}" id="nagano">
+                        <p>長野</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="gifu">
+                    <a href="{% url 'cyuubu_view' %}" id="gifu">
+                        <p>岐阜</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="yamanashi">
+                    <a href="{% url 'cyuubu_view' %}" id="yamanashi">
+                        <p>山梨</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="aichi">
+                    <a href="{% url 'cyuubu_view' %}" id="aichi">
+                        <p>愛知</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="shizuoka">
+                    <a href="{% url 'cyuubu_view' %}" id="shizuoka">
+                        <p>静岡</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div id="kinki" class="clearfix">
+        <p class="area-title">近畿</p>
+        <div class="area">
+            <a href="#">
+                <div id="kyoto">
+                    <a href="{% url 'kinki_view' %}" id="kyoto">
+                        <p>京都</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="shiga">
+                    <a href="{% url 'kinki_view' %}" id="shiga">
+                        <p>滋賀</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="osaka">
+                    <a href="{% url 'kinki_view' %}" id="osaka">
+                        <p>大阪</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="nara">
+                    <a href="{% url 'kinki_view' %}" id="nara">
+                        <p>奈良</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="mie">
+                    <a href="{% url 'kinki_view' %}" id="mie">
+                        <p>三重</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="wakayama">
+                    <a href="{% url 'kinki_view' %}" id="wakayama">
+                        <p>和歌山</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="hyougo">
+                    <a href="{% url 'kinki_view' %}" id="hyougo">
+                        <p>兵庫</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div id="tyugoku" class="clearfix">
+        <p class="area-title">中国</p>
+        <div class="area">
+            <a href="#">
+                <div id="tottori">
+                    <a href="{% url 'chuugoku_view' %}" id="tottori">
+                        <p>鳥取</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="okayama">
+                    <a href="{% url 'chuugoku_view' %}" id="okayama">
+                        <p>岡山</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="shimane">
+                    <a href="{% url 'chuugoku_view' %}" id="shimane">
+                        <p>島根</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="hiroshima">
+                    <a href="{% url 'chuugoku_view' %}" id="hiroshima">
+                        <p>広島</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="yamaguchi">
+                    <a href="{% url 'chuugoku_view' %}" id="yamaguchi">
+                        <p>山口</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div id="shikoku" class="clearfix">
+        <p class="area-title">四国</p>
+        <div class="area">
+            <a href="#">
+                <div id="kagawa">
+                    <a href="{% url 'shikoku_view' %}" id="kagawa">
+                        <p>香川</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="ehime">
+                    <a href="{% url 'shikoku_view' %}" id="ehime">
+                        <p>愛媛</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="tokushima">
+                    <a href="{% url 'shikoku_view' %}" id="tokushima">
+                        <p>徳島</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="kouchi">
+                    <a href="{% url 'shikoku_view' %}" id="kouchi">
+                        <p>高知</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div id="kyusyu" class="clearfix">
+        <p class="area-title">九州・沖縄</p>
+        <div class="area">
+            <a href="#">
+                <div id="fukuoka">
+                    <a href="{% url 'fukuoka_view' %}" id="fukuoka">
+                        <p>福岡</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="saga">
+                    <a href="{% url 'fukuoka_view' %}" id="saga">
+                        <p>佐賀</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="nagasaki">
+                    <a href="{% url 'fukuoka_view' %}" id="nagasaki">
+                        <p>長崎</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="oita">
+                    <a href="{% url 'fukuoka_view' %}" id="oita">
+                        <p>大分</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="kumamoto">
+                    <a href="{% url 'fukuoka_view' %}" id="kumamoto">
+                        <p>熊本</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="miyazaki">
+                    <a href="{% url 'fukuoka_view' %}" id="miyazaki">
+                        <p>宮崎</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="kagoshima">
+                    <a href="{% url 'fukuoka_view' %}" id="kagoshima">
+                        <p>鹿児島</p></a>
+                </div>
+            </a>
+            <a href="#">
+                <div id="okinawa">
+                    <a href="{% url 'fukuoka_view' %}" id="okinawa">
+                        <p>沖縄</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    </div> <!-- japan-map -->
+    <script>
+        function goBack() {
+            window.history.back(); // 戻る
+        }
+    </script>
+    
+    </body>
+    </html>
+
+    
+

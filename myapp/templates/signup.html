@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <title>新規登録</title>
+</head>
+<body>
+    <div class="signup">
+        <div class="signup-screen">
+            <div class="app-title">
+                <h1>新規登録</h1>
+            </div>
+
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <div class="signup-form">
+                    <div class="control-group">
+                        <input type="text" name="username" class="signup-field" placeholder="ユーザー名" id="signup-name" required>
+                        <label class="signup-field-icon fui-user" for="signup-name"></label>
+                    </div>
+
+                    <div class="control-group">
+                        <input type="email" name="email" class="signup-field" placeholder="メールアドレス" id="signup-email" required>
+                        <label class="signup-field-icon fui-mail" for="signup-email"></label>
+                    </div>
+
+                    <div class="control-group">
+                        <input type="password" name="password1" class="signup-field" placeholder="パスワード" id="signup-pass1" required>
+                        <label class="signup-field-icon fui-lock" for="signup-pass1"></label>
+                    </div>
+
+                    <div class="control-group">
+                        <input type="password" name="password2" class="signup-field" placeholder="パスワード（確認）" id="signup-pass2" required>
+                        <label class="signup-field-icon fui-lock" for="signup-pass2"></label>
+                    </div>
+
+                    <div class="terms-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">利用規約に同意する</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large btn-block">登録する</button>
+                    <a class="login-link" href="{% url 'login' %}">すでにアカウントをお持ちの方はこちら</a>
+                </div>
+            </form>
+
+            <!--{% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message-box {% if message.tags %}message-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}-->
+        </div>
+    </div>
+
+    
+    <div class="wrapper">
+        <div class="car">
+          <div class="body">
+            <img src="https://www.evoworx.co.jp/demo/css-car/car_body.png" alt="" />
+          </div>
+          <div class="tire-front">
+            <img src="https://www.evoworx.co.jp/demo/css-car/tire.png" alt="" />
+          </div>
+          <div class="tire-rear">
+            <img src="https://www.evoworx.co.jp/demo/css-car/tire.png" alt="" />
+          </div>
+        </div>
+        <div class="backgound">
+          <div class="group">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+          </div>
+          <div class="circle">
+            <div class="sunset"></div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

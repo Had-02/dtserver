@@ -1,0 +1,267 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新しい記事を投稿</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;  /* 중앙 정렬 대신 시작 위치로 변경 */
+            min-height: 100vh;  /* 최소 높이를 100vh로 설정하여 내용이 위쪽에 위치하도록 */
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%; /* 작은 화면에서 너비를 90%로 설정 */
+            max-width: 600px; /* 큰 화면에서 최대 너비 설정 */
+            margin: 40px auto; /* 상단 여백을 40px로 증가 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* 작은 화면에서 너비를 95%로 설정 */
+                margin: 20px auto; /* 여백 조정 */
+            }
+        }
+
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+            display: block;
+        }
+
+        input[type="text"], textarea, input[type="file"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        #image-preview {
+            display: none;
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
+        .like-button {
+            background-color: transparent; /* 배경색을 투명으로 설정 */
+            color: pink; /* 글자 색상을 핑크색으로 설정 */
+            border: none; /* 테두리 없음 */
+            padding: 5px 10px; /* 패딩을 줄여서 버튼 크기 축소 */
+            cursor: pointer; /* 커서 포인터 */
+            margin-top: 10px; /* 위쪽 여백 */
+            font-size: 14px; /* 글자 크기 조정 */
+        }
+
+        .like-button:hover {
+            background-color: #0056b3; /* 호버 시 색상 */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>新しい記事を投稿</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="title">タイトル</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">内容</label>
+            <textarea id="content" name="content" required></textarea>
+
+            <label for="image">写真</label>
+            <input type="file" id="image" name="image" required>
+            <img id="image-preview" src="" alt="プレビュー画像" style="display: none; max-width: 100%; height: auto;">
+
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password" required>
+
+            {% comment %} <!-- エラーメッセージの表示 -->
+            {% if form.errors %}
+                <div class="error-message">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %} {% endcomment %}
+
+            <button type="submit">投稿する</button>
+        </form>
+
+        <div class="back-link">
+            <a href="{% url 'home' %}">戻る</a>
+        </div>
+
+        <section id="blog" class="blog">
+            <div class="container">
+                <div class="section-header">
+                    <h2>投稿一覧</h2>
+                </div>
+                <div class="blog-content">
+                    <div class="row">
+                        {% for post in posts %}
+                        <div class="col-md-4 col-sm-6">
+                            <div class="single-blog-item">
+                                <div class="single-blog-item-txt">
+                                    <h3 onclick="togglePostContent('post-content-{{ post.id }}')">{{ post.title }}</h3>
+                                    <p id="post-content-{{ post.id }}" class="post-content" style="display: none;">
+                                        {{ post.content }}
+                                    </p>
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
+                                    {% else %}
+                                        <img src="{% static 'assets/images/default.png' %}" alt="デフォルト画像">
+                                    {% endif %}
+                                    <p>投稿者: {{ post.author.username }}</p>
+                                    <p>投稿日時: {{ post.created_at|date:"Y年m月d日 H:i" }}</p>
+                                
+                                    <!-- 좋아요 버튼을 投稿日時 아래로 이동 -->
+                                    <div class="like-section">
+                                        <button class="like-button" data-post-id="{{ post.id }}" data-type="sapa">
+                                            ❤ <span id="likes-count-{{ post.id }}">{{ post.likes }}</span>
+                                        </button>
+                                    </div>
+                                
+                                    <form action="{% url 'delete_sa_pa_post' post.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('本当に削除してもよろしいですか？')">削除</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <p>まだ投稿はありません。</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    </div>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function () {
+                const previewImage = document.getElementById('image-preview');
+                previewImage.src = reader.result; // プレビュー画像のsrcに選択された画像を設定
+                previewImage.style.display = 'block'; // 画像を表示
+            };
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const csrftoken = '{{ csrf_token }}';
+
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                const postType = this.getAttribute('data-type');
+                let url = '';
+
+                if (postType === 'sapa') {  // "sapa" 타입일 경우
+                    url = `/like/sapa/${postId}/`;  // 좋아요 URL
+                } else if (postType === 'blog') {  // 기존 블로그 포스트의 경우
+                    url = `/like/blog/${postId}/`;
+                }
+
+                fetch(url, {
+                    method: 'POST',  // POST 요청
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'  // CSRF 토큰 추가
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById(`likes-count-${postId}`).innerText = data.likes; // 좋아요 수 업데이트
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+
+
+    </script>
+</body>
+
+
+
+
+</html>

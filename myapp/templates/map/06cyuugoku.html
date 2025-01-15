@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国地方のウェブサイト</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/map/03kantou.css' %}">
+    <style>
+        .prefecture {
+            margin-bottom: 20px;
+        }
+        .update-message {
+            color: #155724; /* テキストの色 */
+            background-color: #d4edda; /* 柔らかい背景色 */
+            border: 1px solid #c3e6cb; /* ボーダーの色 */
+            border-radius: 5px; /* 角を丸くする */
+            padding: 10px; /* パディングを追加 */
+            margin-top: 10px; /* 上のマージンを追加 */
+            display: none; /* 初めは非表示 */
+            font-size: 14px; /* フォントサイズ */
+            width: fit-content; /* 内容に合わせて幅を調整 */
+        }
+        .update-button {
+            padding: 10px 20px; /* 上下、左右の余白 */
+            font-size: 16px; /* フォントサイズ */
+            font-weight: bold; /* フォントの太さ */
+            color: white; /* テキストの色 */
+            background-color: #007BFF; /* 背景色 */
+            border: none; /* ボーダーなし */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* マウスカーソルを変更 */
+            transition: background-color 0.3s; /* 背景色変更のアニメーション */
+        }
+        .update-button:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
+        }
+        .update-button:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
+        }
+        .back-button {
+            position: absolute; /* 絶対位置 */
+            top: 10px; /* 上部マージン */
+            left: 10px; /* 左側マージン */
+            padding: 10px 15px; /* パディング */
+            background-color: #ffcc00; /* 背景色 */
+            color: black; /* テキスト色 */
+            border: none; /* ボーダーなし */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* カーソル変更 */
+            font-size: 16px; /* フォントサイズ */
+        }
+        .back-button:hover {
+            background-color: #0056b3; /* ホバー時の色の変化 */
+        }
+        
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="goBack()">◀戻る</button> 
+    <header>
+        <h1>中国地方</h1>
+        <input type="text" id="searchInput" placeholder="検索..." onkeyup="filterContent()">
+    </header>
+    <main id="content">
+        {% for sapa in sapa_data %}
+        <section class="prefecture" id="{{ sapa.area_name }}">
+            <h2>{{ sapa.area_name }}</h2>
+            <p>{{ sapa.area_sapa }}</p>
+            <p>{{ sapa.area_data }}</p>
+            <p>{{ sapa.area_item }}</p>
+            <p id="status-{{ sapa.area_seq }}">{{ sapa.area_stat }}</p>
+
+            <div style="display: flex; align-items: center;">
+                <select id="status-select-{{ sapa.area_seq }}" style="display: none;">
+                    <option value="空">空</option>
+                    <option value="混雑">混雑</option>
+                    <option value="満車">満車</option>
+                </select>
+                <button onclick="showDropdown({{ sapa.area_seq }})" class="update-button">更新</button>
+                <p class="update-message" id="message-{{ sapa.area_seq }}">状態が更新されました！</p>
+            </div>
+        </section>
+        {% endfor %}
+    </main>
+    <footer>
+        <p>&copy; 2024 中国地方のウェブサイト</p>
+    </footer>
+
+    <script>
+        function filterContent() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const prefectures = document.querySelectorAll('.prefecture');
+        
+            // 検索語が空の場合はすべてのセクションを表示
+            if (searchInput === '') {
+                prefectures.forEach(prefecture => {
+                    prefecture.style.display = ''; // すべてのセクションを表示
+                    const texts = Array.from(prefecture.querySelectorAll('h2, p'));
+                    texts.forEach(el => {
+                        el.innerHTML = el.textContent; // 強調表示を削除
+                    });
+                });
+                return; // 関数を終了
+            }
+        
+            prefectures.forEach(prefecture => {
+                // すべてのテキスト内容を取得して結合
+                const texts = Array.from(prefecture.querySelectorAll('h2, p'));
+                const combinedText = texts.map(el => el.textContent.toLowerCase()).join(' '); // すべてのテキストを空白で結合
+        
+                // 強調表示を初期化
+                texts.forEach(el => {
+                    el.innerHTML = el.textContent; // 強調を削除
+                });
+        
+                if (combinedText.includes(searchInput)) {
+                    prefecture.style.display = ''; // 一致する場合は表示
+                    // 強調表示を追加
+                    texts.forEach(el => {
+                        const regex = new RegExp(`(${searchInput})`, 'gi');
+                        el.innerHTML = el.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+                    });
+                } else {
+                    prefecture.style.display = 'none'; // 一致しない場合は非表示
+                }
+            });
+        }
+
+        function showDropdown(areaId) {
+            const dropdown = document.getElementById(`status-select-${areaId}`);
+            dropdown.style.display = 'block'; // ドロップダウンを表示
+
+            const button = document.querySelector(`button[onclick="showDropdown(${areaId})"]`);
+            button.onclick = function() {
+                updateStatus(areaId); // 状態更新関数を呼び出す
+            };
+        }
+
+        function updateStatus(areaId) {
+            const selectedStatus = document.getElementById(`status-select-${areaId}`).value;
+
+            fetch(`/update_full_status/${areaId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ status: selectedStatus })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('ネットワーク応答が正常ではありません');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const statusElement = document.getElementById(`status-${areaId}`);
+                const messageElement = document.getElementById(`message-${areaId}`);
+                const dropdown = document.getElementById(`status-select-${areaId}`);
+
+                statusElement.textContent = data.status; 
+                messageElement.style.display = 'block'; 
+                dropdown.style.display = 'none'; // ドロップダウンを非表示
+
+                setTimeout(() => {
+                    messageElement.style.display = 'none'; // 3秒後にメッセージを非表示
+                }, 3000);
+            })
+            .catch(error => console.error('エラー:', error));
+        }
+        
+        function goBack() {
+            window.history.back(); // 戻る
+        }
+    </script>
+</body>
+</html>

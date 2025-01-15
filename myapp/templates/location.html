@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS 追跡</title>
+    <style>
+        /* 地図コンテナのスタイル */
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        /* ステータスメッセージのスタイル */
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>あなたの位置を追跡します</h1>
+    <h2 id="status"></h2>
+    <div id="map"></div>
+
+    <script>
+        // ページが読み込まれたときに自動で位置情報を取得
+        window.onload = function() {
+            if (navigator.geolocation) {  // Geolocationがサポートされているか確認
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById('status').innerHTML = "このブラウザではGeolocationがサポートされていません。";
+            }
+        };
+
+        // 位置情報取得成功時に実行される関数
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            document.getElementById('status').innerHTML = "緯度: " + lat + 
+            "<br>経度: " + lon;
+
+            // Google マップの初期化
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: lat, lng: lon},
+                zoom: 15
+            });
+
+            // 現在地にマーカーを表示
+            var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lon},
+                map: map,
+                title: '現在地'
+            });
+        }
+
+        // 位置情報取得失敗時に実行される関数
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById('status').innerHTML = "ユーザーが位置情報のリクエストを拒否しました。";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById('status').innerHTML = "位置情報が利用できません。";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById('status').innerHTML = "リクエストがタイムアウトしました。";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById('status').innerHTML = "不明なエラーが発生しました。";
+                    break;
+            }
+        }
+    </script>
+
+
+    <!-- Google Maps APIの読み込み (YOUR_API_KEYは実際のAPIキーに置き換えてください) -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIAVmnl27mZDpaDB06FyNC6UeQfPtM3co"></script>
+</body>
+</html>
