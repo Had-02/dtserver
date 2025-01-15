@@ -28,6 +28,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "98.81.140.61",
+    'NBA_DriverTalk.com', 
+    '127.0.0.1'
 ]
 
 
@@ -162,6 +164,6 @@ LOGIN_URL = '/login/'  # ログイン画面のURL
 
 POST_PASSWORD = "1234"
 
-ALLOWED_HOSTS = ['NBA_DriverTalk.com', 'localhost', '127.0.0.1']
+
 
 
