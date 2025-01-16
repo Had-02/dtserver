@@ -1,0 +1,44 @@
+[33mcommit 96fb5498d5812a8f29902f5bc174a0226f4e6aaa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Had-02 <myserious120@gmail.com>
+Date:   Thu Jan 16 13:55:10 2025 +0900
+
+    first commit
+
+[33mcommit e5330839ebfd2ed6f12be176ddd16b777d87830f[m
+Author: Had-02 <myserious120@gmail.com>
+Date:   Thu Jan 16 13:54:06 2025 +0900
+
+    first commit
+
+[33mcommit 10e260cbd402a8dd59fbf0b906c3d49b829cc0da[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Had-02 <myserious120@gmail.com>
+Date:   Wed Jan 15 12:27:55 2025 +0900
+
+    update settings.py01
+
+[33mcommit f19c3c996aff30c896a995836d8fc2b8802a1c52[m
+Author: Had-02 <myserious120@gmail.com>
+Date:   Wed Jan 15 12:14:02 2025 +0900
+
+    update settings.py
+
+[33mcommit 5130499e8e4ea9749b2f1cc22a050a219e5dba35[m
+Author: Had-02 <myserious120@gmail.com>
+Date:   Wed Jan 15 11:52:53 2025 +0900
+
+    first commit
+            new file:   myapp/models.py
+            new file:   myapp/routers.py
+            new file:   myapp/static/assets/css/animate.css
+            new file:   myapp/static/assets/css/bootstrap.min.css
+            new file:   myapp/static/assets/css/flaticon.css
+            new file:   myapp/static/assets/css/font-awesome.min.css
+            new file:   myapp/static/assets/css/fonts/slick.eot
+            new file:   myapp/static/assets/css/fonts/slick.ttf
+            new file:   myapp/static/assets/css/fonts/slick.woff
+            new file:   myapp/static/assets/css/linearicons.css
+            new file:   myapp/static/assets/css/responsive.css
+            new file:   myapp/static/assets/css/slick-theme.css
+            new file:   myapp/static/assets/css/slick.css
+            new file:   myapp/static/assets/css/style.css
+            new file:   myapp/static/assets/fonts/Flaticon.eot
