@@ -97,6 +97,37 @@
         .btn:hover {
             opacity: 0.8;
         }
+
+        /* 画像関連の新しいスタイルを追加 */
+        .post-image-container {
+            margin: 20px 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .image-error {
+            padding: 20px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            color: #721c24;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-loading {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+
     </style>
 </head>
 <body>
@@ -107,14 +138,28 @@
             <h2>{{ post.title }}</h2>
             <p>{{ post.content|truncatewords:20 }}</p>
             {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                <div class="post-image-container" id="image-container">
+                    <img 
+                        src="{% url 'serve_image' post.image.name|cut:'uploads/' %}"
+                        alt="{{ post.title }}"
+                        class="post-image"
+                        id="post-image"
+                        onerror="handleImageError()"
+                        onload="handleImageLoad(this)"
+                    >
+                </div>
             {% else %}
-                <img src="{% static 'assets/images/default.png' %}" alt="デフォルト画像" class="post-image">
+                <div class="post-image-container">
+                    <img 
+                        src="{% static 'assets/images/default.png' %}" 
+                        alt="デフォルト画像" 
+                        class="post-image"
+                    >
+                </div>
             {% endif %}
         </div>
 
         {% if is_owner %}
-            <!-- 投稿者の場合: パスワード入力をスキップ -->
             <form method="POST" class="delete-form">
                 {% csrf_token %}
                 <div class="button-group">
@@ -123,7 +168,6 @@
                 </div>
             </form>
         {% else %}
-            <!-- 他のユーザーの場合: パスワード入力が必要 -->
             <form method="POST" class="delete-form">
                 {% csrf_token %}
                 <label for="password">削除パスワード:</label>
@@ -135,5 +179,24 @@
             </form>
         {% endif %}
     </div>
+
+    <script>
+        // 画像のロード完了時の処理
+        function handleImageLoad(img) {
+            img.classList.remove('image-loading');
+        }
+
+        // 画像の読み込みエラー時の処理
+        function handleImageError() {
+            const container = document.getElementById('image-container');
+            if (container) {
+                container.innerHTML = `
+                    <div class="image-error">
+                        画像を読み込めませんでした。
+                    </div>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>

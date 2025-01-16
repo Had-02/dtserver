@@ -27,9 +27,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    "98.81.140.61",
-    'NBA_DriverTalk.com', 
-    '127.0.0.1'
+    "98.81.140.61",       
+    "34.229.218.60",
 ]
 
 
