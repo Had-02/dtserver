@@ -28,6 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "54.197.19.19",
+    "54.234.108.214",
     '*',
     "nba_drivertalk",
     ]
