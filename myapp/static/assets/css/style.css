@@ -307,8 +307,8 @@ h2 .drive {
     color: #252d32;
 }
 .welcome-MAP-btn {
-    width: 100%;
-    height: 70px;
+    width: 100% !important;
+    height: 70px !important;
     background: #dcf85e !important; 
     color: #333 !important; 
     border: 2px solid #dcf85e !important; 
