@@ -276,7 +276,8 @@ h2 .drive {
     justify-content: space-between;
     background: #fff;
     height: 70px;
-    width: 100%;
+    width: 900px;
+    margin-left: 120px;
 }
 .single-welcome-hero-form {
     position: relative ;
@@ -307,7 +308,7 @@ h2 .drive {
     color: #252d32;
 }
 .welcome-MAP-btn {
-    width: 100% !important;
+    width: 900px !important;
     height: 70px !important;
     background: #dcf85e !important; 
     color: #333 !important; 
