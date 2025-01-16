@@ -1074,3 +1074,32 @@ input {
 	border-style: solid;
 	border-color: #070707;
 }
+
+body {
+    height: 2000px; /* スクロールのためのダミーの高さ */
+    font-family: Arial, sans-serif;
+}
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #0066cc;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+#scrollTopBtn:hover {
+    background-color: #0055aa;
+    transform: translateY(-3px);
+}
+#scrollTopBtn svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
