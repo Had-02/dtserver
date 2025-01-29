@@ -20,8 +20,12 @@ body {
     width: 100%;
     max-width: 450px;
     margin: 20px auto;
-    position: relative;
+    position: fixed;
     z-index: 2;
+    left: 25%;
+    top: 49px;
+    margin-left: 225px;
+
 }
 
 .signup-screen {
@@ -155,131 +159,93 @@ body {
     color: white;
 }
 
-/* Animation Background Styles (Same as login page) */
-.wrapper {
+
+
+
+
+
+
+
+
+
+
+body {
+    height: 1000vh;
+    background: rgb(254, 93, 81);
+    background: linear-gradient(
+      180deg,
+      rgba(30, 147, 193, 1) 0%,
+      rgba(255, 135, 75, 1) 50%,
+      rgba(255, 135, 75, 1) 90%,
+      rgba(255, 93, 49, 1) 100%
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      vertical-align: top;
+    }
+  }
+  
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
-}
-
-/* Car Animation */
-.car {
-    position: absolute;
-    bottom: 50px;
-    left: -150px;
-    animation: moveCar 15s linear infinite;
-}
-
-.body {
+    right: 0;
+    width: 798px;
+    min-height: 100vh;
+    margin: auto;
+  }
+  
+  .car {
     position: relative;
-    z-index: 2;
-}
-
-.tire-front, .tire-rear {
+    z-index: 10;
+    width: 300px;
+    height: 202px;
+    margin: 0 auto;
+    animation: drive linear;
+    animation-timeline: scroll();
+  }
+  
+  .body {
+    position: relative;
+    animation: shaking 1s linear infinite;
+    &::before {
+      position: absolute;
+      bottom: -95px;
+      left: -444px;
+      content: ' ';
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 240px solid transparent;
+      border-left: 500px solid rgba(191, 188, 87, 0.7);
+      z-index: -1;
+      -webkit-mask-box-image: linear-gradient(to left, black, transparent);
+      rotate: 20deg;
+      animation: light linear;
+      animation-timeline: scroll();
+    }
+  }
+  
+  .tire-front {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    animation: rotateTire 1s linear infinite;
-}
-
-.tire-front {
-    left: 50px;
+    left: 26px;
     bottom: 0;
-}
-
-.tire-rear {
-    right: 50px;
+    width: 84px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .tire-rear {
+    position: absolute;
+    right: 32px;
     bottom: 0;
-}
-
-/* Cloud Styles */
-.backgound .group {
-    position: absolute;
-    top: 50px;
-    width: 100%;
-}
-
-.cloud {
-    width: 100px;
-    height: 40px;
-    background: white;
-    border-radius: 20px;
-    position: absolute;
-    animation: moveCloud 20s linear infinite;
-}
-
-.cloud:nth-child(1) { left: 10%; animation-delay: 0s; }
-.cloud:nth-child(2) { left: 40%; animation-delay: -5s; }
-.cloud:nth-child(3) { left: 70%; animation-delay: -10s; }
-
-.cloud:before,
-.cloud:after {
-    content: '';
-    background: white;
-    position: absolute;
-    border-radius: 50%;
-}
-
-.cloud:before {
-    width: 50px;
-    height: 50px;
-    top: -20px;
-    left: 15px;
-}
-
-.cloud:after {
-    width: 30px;
-    height: 30px;
-    top: -10px;
-    left: 45px;
-}
-
-/* Animations */
-@keyframes moveCar {
-    from { transform: translateX(-150px); }
-    to { transform: translateX(calc(100vw + 150px)); }
-}
-
-@keyframes rotateTire {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes moveCloud {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(100vw + 100px)); }
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-    .signup {
-        width: 90%;
-        margin: 10px auto;
-    }
-    
-    .signup-screen {
-        padding: 15px;
-    }
-    
-    .app-title h1 {
-        font-size: 22px;
-    }
-    
-    .signup-field {
-        padding: 10px;
-        font-size: 14px;
-    }
-    
-    .terms-group label {
-        font-size: 12px;
-    }
-    
-    .btn {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
+    width: 84px;
+    animation: spin 1s linear -0.75s infinite;
+  }

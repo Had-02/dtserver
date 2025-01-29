@@ -13,8 +13,11 @@
     .login {
     margin: 20px auto;
     width: 300px;
-    position: relative;
+    position: fixed;
     z-index: 100;
+    left: 30%;
+    top: 49px;
+    margin-left: 225px;
     }
     .login-screen {
     background-color: #FFF;
