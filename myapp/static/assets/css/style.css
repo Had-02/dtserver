@@ -46,11 +46,11 @@ p {
 	font-size:14px;
     line-height: 1.8;
     text-transform: initial;
-    display: -webkit-box;           /* flexboxのように扱う */
-    -webkit-box-orient: vertical;   /* 垂直方向にボックスを配置 */
-    -webkit-line-clamp: 2;          /* 2行に制限 */
-    overflow: hidden;               /* はみ出たテキストを隠す */
-    text-overflow: ellipsis;        /* 省略記号「...」を表示 */
+    display: -webkit-box;           
+    -webkit-box-orient: vertical;   
+    -webkit-line-clamp: 2;          
+    overflow: hidden;               
+    text-overflow: ellipsis;        
     width: 200px;    
 }
 img{border:none;max-width:100%; height:auto;}
