@@ -148,24 +148,52 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+# Media files configuration
+MEDIA_URL = '/media/'  # URLのプレフィックス
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # メディアファイルの保存場所
+
+# Static files configuration
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp/static'),
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+# URLパターンにメディアファイルのURLを追加
+from django.conf import settings
+from django.conf.urls.static import static
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# メディアファイルの設定
-MEDIA_URL = '/uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# プロダクション環境での設定
+if not settings.DEBUG:
+    # 本番環境ではNginxなどでメディアファイルを提供することを推奨
+    MEDIA_ROOT = '/var/www/media/'  # サーバー上の実際のパス
+    MEDIA_URL = 'https://your-domain.com/media/'  # 実際のドメイン
 
 LOGIN_URL = '/login/'  # ログイン画面のURL
 
 POST_PASSWORD = "1234"
 
 
+# ウェブサーバーの設定
+# server {
+#     listen 80;
+#     server_name 34.192.31.113;
+
+#     location / {
+#         include proxy_params;
+#         proxy_pass http://unix:/home/ubuntu/dtserver/dtproject.sock;
+#     }
+
+#         location /static/ {
+#         alias /home/ubuntu/dtserver/staticfiles/;  # STATIC_ROOT 경로
+#     }
+
+#     location /media/ {
+#         alias /home/ubuntu;  # MEDIA_ROOT 경로
+#     }
+# }
 
 
