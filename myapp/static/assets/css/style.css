@@ -224,83 +224,136 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 /*-------------------------------------
         4.  Welcome-hero
 --------------------------------------*/
-/* パスの修正とスタイルの優先順位向上 */
 .welcome-hero {
     position: relative;
-    background: url('../images/welcome-hero/banner.jpg') no-repeat center center !important;
-    background-size: cover !important;
+    background:url(../images/welcome-hero/banner.jpg)no-repeat;
+    background-position:center;
+    background-size:cover;
     text-align: center;
     height: 600px;
-    width: 100%;
-    z-index: 1;
-}
-
-/* ボタンの位置固定 */
-.welcome-hero-btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    position: relative !important;
-    z-index: 2;
-}
-
-/* 画像関連の修正 */
-img {
-    border: none;
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* スクロールボタンの修正 */
-#scrollTopBtn {
-    display: none;
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 9999 !important;
-}
-
-/* フォームの位置修正 */
-.welcome-hero-form {
-    display: flex !important;
-    justify-content: space-between !important;
-    position: relative !important;
-    z-index: 2;
-    margin: 0 auto !important;
-}
-
-/* メディアクエリの追加 */
-@media screen and (max-width: 768px) {
-    .welcome-hero-form {
-        width: 90% !important;
-        margin: 0 auto !important;
-    }
     
-    .welcome-hero-btn {
-        margin: 10px auto !important;
-    }
+}
+.welcome-hero:before{
+    position: absolute;
+    content: " ";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(65,73,89,.65);
+    z-index: -1;
 }
 
-/* 画像パスの絶対パス化のための追加 */
-[class*="-img"] {
-    background-position: center !important;
-    background-size: cover !important;
+
+.welcome-hero-txt h2 {
+    font-size: 48px;
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    line-height: 1.4;
+    margin-top: 95px;
+}
+.welcome-hero-txt p {
+    margin-left: 470px;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 100px;
+    font-weight: 1000;
 }
 
-/* GitHubページ特有の問題解決用 */
-.single-explore-img {
-    position: relative;
-    overflow: hidden;
-    height: 268px;
-    background-size: cover !important;
-    background-position: center !important;
+h2 .drive {
+    margin-top: 100px;
 }
 
-/* ボタンのz-index調整 */
+.tark{
+    color: red;
+}
+
+.welcome-hero-serch-box{margin-top: 78px;display: flex;}
+.welcome-hero-form {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    height: 70px;
+    width: 900px;
+    margin-left: 120px;
+}
+.single-welcome-hero-form {
+    position: relative ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    padding: 0px 0px;
+    text-align: center;
+}
+
+.single-welcome-hero-form input {
+    margin-left: 10px;
+    height: 70px;
+    border: 0;
+    background: transparent;
+}
+.single-welcome-hero-form input[type="text"]{
+    font-size: 14px;
+    color: #859098;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.welcome-hero-form-icon {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #252d32;
+}
 .welcome-MAP-btn {
-    position: relative !important;
-    z-index: 3 !important;
+    width: 900px !important;
+    height: 70px !important;
+    background: #dcf85e !important; 
+    color: #333 !important; 
+    border: 2px solid #dcf85e !important; 
+    border-radius: 5px !important; 
+    font-size: 16px !important; 
+    cursor: pointer !important;
+    transition: background-color 0.3s, color 0.3s !important; 
+}
+
+.ren{
+    text-align: center;
+}
+
+
+
+.welcome-MAP-btn:hover {
+    background: #c0d74f; 
+    color: white;
+}
+
+.welcome-hero-btn {
+    display:  flex;
+    justify-content:  center;
+    align-items:  center;
+    font-size:  14px;
+    color:  #fff;
+    width:  170px;
+    height:  70px;
+    background:  #ff545a;
+    text-transform:  capitalize;
+    margin-left:  30px;
+    border-radius: 3px;
+    -webkit-transition: 0.3s linear; 
+    -moz-transition: 0.3s linear; 
+    -ms-transition: 0.3s linear; 
+    -o-transition: 0.3s linear; 
+    transition: 0.3s linear;
+}
+.welcome-hero-btn:hover{/*background: #fd4043;*/background: #f43032;}
+
+.welcome-hero-btn svg {
+    width:  14px;
+    height:  auto;
+    margin-left:  12px;
 }
 
 /*-------------------------------------
