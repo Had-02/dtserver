@@ -148,29 +148,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Media files configuration
-MEDIA_URL = '/media/'  # URLのプレフィックス
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # メディアファイルの保存場所
-
-# Static files configuration
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/var/www/dtproject/staticfiles'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp/static'),
 ]
 
-# URLパターンにメディアファイルのURLを追加
-from django.conf import settings
-from django.conf.urls.static import static
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# プロダクション環境での設定
-if not settings.DEBUG:
-    # 本番環境ではNginxなどでメディアファイルを提供することを推奨
-    MEDIA_ROOT = '/var/www/media/'  # サーバー上の実際のパス
-    MEDIA_URL = 'https://your-domain.com/media/'  # 実際のドメイン
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# メディアファイルの設定
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/dtproject/media'
 
 LOGIN_URL = '/login/'  # ログイン画面のURL
 
