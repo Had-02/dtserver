@@ -25,10 +25,6 @@ SECRET_KEY = 'django-insecure-&+sx$ufopgahijdfb1v2@3y!+j5t@o__44$(j%)^cks1bhihmw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['NBA-DriverTalk.duckdns.org', '127.0.0.1', 'localhost']
-
-=======
 ALLOWED_HOSTS = [
     "localhost",
     "54.197.19.19",
@@ -37,7 +33,6 @@ ALLOWED_HOSTS = [
     "nba_drivertalk",
     "34.192.31.113",
     ]
->>>>>>> a88ac5f88fc526dfb1af65c90a4b45d2bdb4082c
 
 
 # Application definition
