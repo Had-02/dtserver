@@ -302,7 +302,7 @@
 									<h2>{{ post.title }}</h2>
 									<p>{{ post.content|truncatewords:20 }}</p>
 									{% if post.image %}
-									<img src="{% url 'serve_image' post.image.name %}" alt="{{ post.title }}">
+									<img src="{% url 'serve_image' post.url %}" alt="{{ post.title }}">
 									{% else %}
 									<img src="{% static 'assets/images/default.png' %}" alt="デフォルト画像">
 									{% endif %}
