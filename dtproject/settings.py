@@ -160,7 +160,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # メディアファイルの設定
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/var/www/dtproject/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'  # ログイン画面のURL
 
