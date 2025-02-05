@@ -26,7 +26,16 @@ SECRET_KEY = 'django-insecure-&+sx$ufopgahijdfb1v2@3y!+j5t@o__44$(j%)^cks1bhihmw
 DEBUG = True
 
 ALLOWED_HOSTS = [
+<<<<<<< HEAD
     
+=======
+    "localhost",
+    "54.197.19.19",
+    "54.234.108.214",
+    '*',
+    "nba_drivertalk",
+    "34.192.31.113",
+>>>>>>> eb7ff5641fe811819c15a1086a26779a47670db8
     ]
 
 
@@ -143,8 +152,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+<<<<<<< HEAD
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+=======
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/dtproject/staticfiles'
+>>>>>>> eb7ff5641fe811819c15a1086a26779a47670db8
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp/static'),
 ]
@@ -154,13 +168,31 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # メディアファイルの設定
-MEDIA_URL = '/uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'  # ログイン画面のURL
 
 POST_PASSWORD = "1234"
 
 
+# ウェブサーバーの設定
+# server {
+#     listen 80;
+#     server_name 34.192.31.113;
+
+#     location / {
+#         include proxy_params;
+#         proxy_pass http://unix:/home/ubuntu/dtserver/dtproject.sock;
+#     }
+
+#         location /static/ {
+#         alias /home/ubuntu/dtserver/staticfiles/;  # STATIC_ROOT 경로
+#     }
+
+#     location /media/ {
+#         alias /home/ubuntu;  # MEDIA_ROOT 경로
+#     }
+# }
 
 

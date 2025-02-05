@@ -26,3 +26,6 @@ urlpatterns = [
     path('', include('myapp.urls')),
     path('media/<path:file_name>/', serve_image, name='serve_image'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
