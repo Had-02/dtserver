@@ -19,7 +19,7 @@ class BlogPostForm(forms.ModelForm):
     def clean_image(self):
         image = self.cleaned_data.get('image')
         if not image:
-            raise forms.ValidationError('사진은 필수입니다. 업로드 해주세요.')
+            raise forms.ValidationError('写真は必須です。アップロードしてください。')
         return image
 
 

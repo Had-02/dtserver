@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from myapp.storage import DatabaseStorage
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+from django.core.files.storage import default_storage
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
@@ -96,7 +97,7 @@ class Location(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)  # 최대 길이를 255로 수정
     content = models.TextField()
-    image = models.ImageField(storage=DatabaseStorage(), upload_to='images/', blank=True, null=True)  # 커스텀 스토리지 사용
+    image = models.ImageField(storage=default_storage, upload_to='images/', blank=True, null=True)
     author = models.ForeignKey(
         User, 
         on_delete=models.CASCADE, 
