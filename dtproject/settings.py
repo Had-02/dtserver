@@ -26,16 +26,12 @@ SECRET_KEY = 'django-insecure-&+sx$ufopgahijdfb1v2@3y!+j5t@o__44$(j%)^cks1bhihmw
 DEBUG = False
 
 ALLOWED_HOSTS = [
-<<<<<<< HEAD
-    
-=======
     "localhost",
     "54.197.19.19",
     "54.234.108.214",
     '*',
     "nba_drivertalk",
     "34.192.31.113",
->>>>>>> eb7ff5641fe811819c15a1086a26779a47670db8
     ]
 
 
@@ -152,13 +148,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-<<<<<<< HEAD
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
-=======
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/dtproject/staticfiles'
->>>>>>> eb7ff5641fe811819c15a1086a26779a47670db8
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp/static'),
 ]
